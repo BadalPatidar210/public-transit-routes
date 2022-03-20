@@ -6,7 +6,6 @@ const RouteModel = require('./models/route')
 const app = express();
 const cors = require('cors')
 const mongoose = require('mongoose');
-// const { useJsApiLoader } = require('@react-google-maps/api');
 
 const COMMON = {
     PORT: 9010,
@@ -22,7 +21,6 @@ app.use(cors());
 mongoose.connect(COMMON.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    // useCreateIndex: true,
 }).then(() => console.log("\n****\nMongoDB connected\n****\n")).catch((error) => console.log(error));
 
 //apis
