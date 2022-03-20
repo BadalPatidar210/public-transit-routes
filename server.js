@@ -8,7 +8,7 @@ const cors = require('cors')
 const mongoose = require('mongoose');
 
 const COMMON = {
-    PORT: 9010,
+    PORT: process.env.PORT || 9010,
     MONGO_URL: 'mongodb+srv://badal:badal@cluster0.8qdyv.mongodb.net/chaloDb?retryWrites=true&w=majority',
 }
 
@@ -86,5 +86,14 @@ app.delete("/api/v1/route/delete/:id", (req, res) => {
             console.log('Error while delete data', err);
         })
 })
+
+//server static resource if in prodcution
+if (process.env.NODE_ENV === 'production') {
+    //set static folder
+    app.use(express.static('client/build'));
+    app.get('*', (_, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+    });
+}
 
 app.listen(COMMON.PORT, () => console.log(`Dev Server is running on port: ${COMMON.PORT}`));
